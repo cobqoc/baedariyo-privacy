@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>배다리요 — 앱 설치</title>
+<meta name="description" content="배다리요 안드로이드 테스트 버전 설치 안내">
+<!-- 검색에 안 뜨게 — 링크를 받은 사람만 온다(유저 2026-09-17: 웹사이트 전체는 공개하지 않고 설치 페이지만) -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0d12">
+<!-- 카톡·카페에 링크를 붙였을 때 미리보기. 그림은 이 페이지와 같은 폴더에 올린다(web/assets/og.png 사본) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="배다리요 앱 설치">
+<meta property="og:description" content="안드로이드 테스트 버전 · 순서대로 진행하면 설치할 수 있어요">
+<meta property="og:image" content="https://cobqoc.github.io/baedariyo-privacy/install/og.png">
+<meta property="og:image:width" content="1024"><meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<!-- 앱 아이콘과 같은 그림(docs/assets/icon_store_512.png 를 192px 로 줄인 사본 — 안드 런처·아이폰 아이콘과 같은 원본) -->
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 배다리요 설치 페이지 — 공개하는 건 이 한 쪽뿐이다. 첫 페이지(web/index.html)의 설치 상자를 옮긴 것이라 내용·동작이 같다 —
+   안내를 고치면 둘 다 고친다. 올리는 곳 = cobqoc/baedariyo-privacy 의 install/ (docs/운영-필수항목.md 방침 발행과 같은 저장소) */
+:root{
+  --ground:#0b0d12; --surface:#12161e; --surface2:#171c26; --line:#222834;
+  --txt:#e8eaed; --sub:#9aa3b2; --faint:#6b7483; --brand:#0a84ff;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:clip;overflow-wrap:anywhere;background:var(--ground);color:var(--txt);
+  font-family:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",Roboto,sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:6px}
+.page{max-width:500px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-right))}
+main.page{padding-top:max(24px,env(safe-area-inset-top));padding-bottom:20px}
+.logo{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-weight:700;font-size:17px}
+.logo img{border-radius:22%}   /* 앱 아이콘처럼 둥근 네모 — 원본은 꽉 찬 네모다 */
+.card{padding:clamp(16px,3.5vw,22px);border:1px solid var(--line);border-radius:20px;background:var(--surface);word-break:keep-all}
+.card h1{margin:0 0 14px;font-size:20px;line-height:1.3}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;
+  font:inherit;font-weight:700;font-size:15.5px;text-decoration:none;border:0;cursor:pointer}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:#2a93ff}
+.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:#34405a}
+.btn.sm{min-height:38px;padding:0 14px;font-size:13.5px;border-radius:11px}
+
+.ospick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.os{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:14px 16px;border:1px solid var(--line);border-radius:16px;
+  background:var(--surface2);color:var(--txt);font:inherit;text-align:left;cursor:pointer}
+.os b{font-size:17px}
+.os small{font-size:12.5px;color:var(--sub)}
+.os:hover{border-color:#34405a}
+.os[aria-expanded="true"]{border-color:var(--brand);background:rgba(10,132,255,.12)}
+.pane{margin-top:16px}
+.pane-meta{margin:0 0 12px;font-size:13.5px;color:var(--sub);text-wrap:balance}
+.order{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 12px;font-size:15px;font-weight:600;color:var(--txt)}
+.order .flow{display:inline-flex;align-items:center;gap:6px;color:var(--faint);font-weight:400}
+.isteps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.isteps>*{min-width:0}
+.isteps li{counter-increment:s;display:grid;grid-template-columns:28px minmax(0,1fr);gap:6px 10px;padding:14px;border-radius:14px;background:var(--surface2);border:1px solid #2a3344}
+.isteps li::before,.stepnum{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(10,132,255,.14);color:#8cc4ff;font-weight:700;font-size:13.5px}
+.isteps li::before{content:counter(s)}
+.isteps li>b{align-self:center;font-size:15.5px}
+.isteps .btn{grid-column:1/-1;width:100%;min-height:44px;margin-top:2px}
+.isteps .next{grid-column:1/-1;margin:2px 0 0;font-size:13.5px;color:var(--sub)}
+/* 열린 화면에서 누를 버튼 이름 — 버튼 모양으로 */
+.key{display:inline-block;padding:0 7px;border:1px solid #34405a;border-radius:7px;background:var(--surface);color:var(--txt);font-weight:600;line-height:1.6;white-space:nowrap}
+.key.no{border-color:rgba(229,72,77,.55);color:#ff8a8d}   /* 누르면 안 되는 버튼 */
+.kw{white-space:nowrap}   /* 버튼 이름과 뒤 조사(를·은)가 줄에서 떨어지지 않게 */
+#paneAndroid{position:relative}
+.tip{position:absolute;top:0;left:0;right:0;z-index:2;padding:14px 16px;border:1px solid var(--brand);border-radius:14px;background:#1a2231;
+  box-shadow:0 18px 44px -14px rgba(0,0,0,.9);font-size:14px;line-height:1.6;color:var(--sub)}
+/* 꼬리는 「안드로이드」 칸 가운데 — .ospick 두 칸 · 간격 10px */
+.tip::before{content:"";position:absolute;top:-7px;left:calc((100% - 10px) / 4 - 6px);width:12px;height:12px;background:inherit;
+  border-top:1px solid var(--brand);border-left:1px solid var(--brand);transform:rotate(45deg)}
+.tip p{margin:0}
+.tip b{color:var(--txt)}
+.tip .btn{width:100%;margin-top:12px}
+/* 풍선이 떠 있는 동안 밑의 칸은 흐리고 눌리지 않는다 — 어디를 눌러도 풍선만 닫힌다 */
+#paneAndroid.tipping>:not(.tip){opacity:.15;pointer-events:none}
+.soon{margin:0;padding:16px;border-radius:14px;background:var(--surface2);font-size:14.5px;color:var(--sub)}
+.soon b{display:block;margin-bottom:2px;font-size:15.5px;color:var(--txt)}
+
+footer.page{padding-bottom:max(32px,env(safe-area-inset-bottom));font-size:13px;color:var(--faint)}
+footer nav{display:flex;flex-wrap:wrap;gap:16px}
+footer a{color:var(--sub)}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <p class="logo"><img src="icon.png" alt="" width="32" height="32">배다리요</p>
+  <section class="card" aria-labelledby="installTitle">
+    <h1 id="installTitle">앱 설치</h1>
+    <div class="ospick">
+      <button class="os" type="button" aria-expanded="false" aria-controls="paneAndroid"><b>안드로이드</b><small>테스트 버전</small></button>
+      <button class="os" type="button" aria-expanded="false" aria-controls="paneIos"><b>아이폰</b><small>준비 중</small></button>
+    </div>
+    <div class="pane" id="paneAndroid" hidden>
+      <!-- 테스트 버전 안내 풍선 — 「안드로이드」를 누를 때마다 그 버튼 밑에 뜬다(유저 2026-09-17: "무조건 읽긴 해야 하니까 클릭하면 안내 풍선으로") -->
+      <div class="tip" id="tipAndroid" hidden>
+        <p id="tipAndroidText"><b>정식 출시 전 테스트 버전이에요.</b> 지금은 구글 규칙상 테스터 그룹에 가입한 계정만 설치할 수 있고, 테스터들이 14일 동안 써야 정식 출시를 신청할 수 있어요. 그동안 앱을 지우지 말고 평소처럼 써 주세요.</p>
+        <button class="btn primary sm" type="button" data-tip-close aria-describedby="tipAndroidText">확인</button>
+      </div>
+      <p class="pane-meta">배민커넥트 · 쿠팡이츠 배달파트너 라이더용 · 안드로이드 9 이상</p>
+      <!-- 버튼 이름은 그 화면에 뜨는 글자 그대로(2026-09-17 가입 안 된 계정으로 끝까지 걸어 잼) — 그룹: 「그룹 참여」→ 뜨는 창의 「그룹 참여」 ·
+           참여 페이지: 영어로만 뜬다 「Become a tester」, 참여 뒤 화면의 유일한 큰 버튼 「Leave the program」 = 참여 취소 · 스토어: 「설치」 -->
+      <!-- ① 버튼은 그룹 주소가 아니라 구글 로그인을 거친다(2026-09-17 S10 크롬으로 잼): 폰 크롬은 구글 웹 로그인이 안 돼 있는 일이 많아 그룹 화면에 「그룹 참여」 없이 「로그인」만 뜨고, 그 「로그인」은 끝나면 그룹스 첫 화면(continue=https://groups.google.com)으로 보낸다 → continue 를 우리 그룹으로 준 로그인 주소 -->
+      <p class="order"><span class="flow" aria-hidden="true"><span class="stepnum">1</span>→<span class="stepnum">2</span>→<span class="stepnum">3</span></span>순서대로 진행해야 앱을 다운받을 수 있어요.</p>
+      <ol class="isteps">
+        <li><b>테스터 그룹 가입</b>
+          <a class="btn primary" href="https://accounts.google.com/ServiceLogin?hl=ko&amp;passive=true&amp;continue=https%3A%2F%2Fgroups.google.com%2Fg%2Fbaedariyo-testers" target="_blank" rel="noopener">그룹 가입하기 <span aria-hidden="true">↗</span></a>
+          <p class="next">로그인 후에 <span class="key">그룹 참여</span> 누르고, 뜨는 창에서 한&nbsp;번&nbsp;더 <span class="kw"><span class="key">그룹 참여</span>를</span> 눌러 가입해 주세요.</p></li>
+        <li><b>테스터 되기</b>
+          <a class="btn ghost" href="https://play.google.com/apps/testing/com.baedariyo.app" target="_blank" rel="noopener">테스터 되기 <span aria-hidden="true">↗</span></a>
+          <p class="next"><span class="kw"><span class="key">Become a tester</span>를</span> 눌러 주세요.<br>다음 화면에서 참여 취소 버튼 <span class="kw"><span class="key no">Leave the program</span>은</span> 누르지 마세요.</p></li>
+        <li><b>Play 스토어에서 설치</b>
+          <a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.baedariyo.app" target="_blank" rel="noopener">Play 스토어 열기 <span aria-hidden="true">↗</span></a>
+          <p class="next"><span class="kw"><span class="key">설치</span>를</span> 눌러 주세요.</p></li>
+      </ol>
+    </div>
+    <div class="pane" id="paneIos" hidden>
+      <p class="soon"><b>아이폰 앱은 준비 중이에요.</b>안드로이드 정식 출시 뒤에 열어요.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="page">
+  <nav aria-label="문서"><a href="https://cobqoc.github.io/baedariyo-privacy/">개인정보처리방침</a><a href="https://cobqoc.github.io/baedariyo-privacy/terms/">이용약관</a></nav>
+</footer>
+
+<script>
+// ── 폰 고르기 · 안내 풍선 — 첫 페이지 설치 상자와 같은 동작(상자 여닫기만 없다) ──
+(function(){
+  var picks = document.querySelectorAll(".os");
+  var androidPick = document.querySelector('.os[aria-controls="paneAndroid"]');
+  var tip = document.getElementById("tipAndroid");
+  var tipOk = tip.querySelector("[data-tip-close]");
+  function setTip(on){
+    tip.hidden = !on;
+    tip.parentNode.classList.toggle("tipping", on);
+    if(on) tipOk.focus({ preventScroll: true });
+  }
+  Array.prototype.forEach.call(picks, function(btn){
+    btn.addEventListener("click", function(){
+      Array.prototype.forEach.call(picks, function(b){
+        var on = (b === btn);
+        b.setAttribute("aria-expanded", on ? "true" : "false");
+        document.getElementById(b.getAttribute("aria-controls")).hidden = !on;
+      });
+      setTip(btn === androidPick);   // 「안드로이드」를 누를 때마다 테스트 버전 안내 풍선
+    });
+  });
+  tipOk.addEventListener("click", function(){ setTip(false); androidPick.focus(); });
+  // 풍선 밖을 누르면 풍선만 닫는다 — 「안드로이드」는 위에서 다시 띄우니 뺀다
+  document.addEventListener("pointerdown", function(e){
+    if(!tip.hidden && !tip.contains(e.target) && !androidPick.contains(e.target)) setTip(false);
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && !tip.hidden){ setTip(false); androidPick.focus(); }
+  });
+})();
+</script>
+</body>
+</html>
