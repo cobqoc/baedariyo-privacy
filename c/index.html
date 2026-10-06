@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>배다리요 채팅 초대</title>
+<meta name="description" content="배다리요 채팅 비공개 방 초대">
+<!-- 검색에 안 뜨게 — 초대 링크를 받은 사람만 온다 -->
+<meta name="robots" content="noindex">
+<!-- 이 쪽에서 나가는 요청이 없지만, 혹시 생겨도 주소를 싣지 않게 -->
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" type="image/png" href="../install/icon.png">
+<style>
+/* 배다리요 채팅 초대 안내 — 2026-10-06 채팅 순서 6 (설계 §9).
+   초대 링크 = https://cobqoc.github.io/baedariyo-privacy/c#1<방 id·방 열쇠>. # 뒤는 브라우저가 서버(GitHub Pages)로 보내지 않는다.
+   ⚠️ 이 쪽은 # 뒤를 **어디에도 보내지 않는다** — 바깥 글꼴·스크립트·통계를 싣지 않는다(🔒 ChatInvitePageTest). 「앱에서 열기」만 같은 # 뒤를 앱 주소로 넘긴다.
+   올리는 곳 = cobqoc/baedariyo-privacy 의 c/ (tools/install_publish.sh — 설치 안내와 같은 저장소) */
+:root{
+  --ground:#0b0d12; --surface:#12161e; --surface2:#171c26; --line:#222834;
+  --txt:#e8eaed; --sub:#9aa3b2; --faint:#6b7483; --brand:#0a84ff;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:clip;overflow-wrap:anywhere;background:var(--ground);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",Roboto,sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:6px}
+main{max-width:500px;margin:0 auto;padding:max(24px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 32px max(16px,env(safe-area-inset-left))}
+.logo{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-weight:700;font-size:17px}
+.logo img{border-radius:22%}
+.card{padding:clamp(16px,3.5vw,22px);border:1px solid var(--line);border-radius:20px;background:var(--surface);word-break:keep-all}
+h1{margin:0 0 6px;font-size:21px;line-height:1.35}
+.lead{margin:0 0 18px;color:var(--sub);font-size:15px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:50px;padding:0 20px;border-radius:14px;
+  font:inherit;font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line);min-height:44px;font-size:15px}
+h2{margin:22px 0 8px;font-size:15.5px}
+ol{margin:0;padding-left:1.3em;color:var(--sub);font-size:14.5px}
+ol li{margin:.25em 0}
+.key{display:inline-block;padding:0 7px;border:1px solid #34405a;border-radius:7px;background:var(--surface2);color:var(--txt);font-weight:600;line-height:1.6}
+.note{margin:18px 0 0;padding:12px 14px;border-radius:14px;background:var(--surface2);border:1px solid var(--line);color:var(--sub);font-size:13.5px}
+.note b{color:var(--txt)}
+.done{margin:8px 0 0;font-size:13.5px;color:var(--sub);text-align:center;min-height:1.4em}
+.foot{margin-top:18px;font-size:12.5px;color:var(--faint);text-align:center}
+.foot a{color:var(--sub)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="logo"><img src="../install/icon.png" width="32" height="32" alt="">배다리요</div>
+
+  <section class="card" id="ok" hidden>
+    <h1>비공개 채팅방에 초대받았어요</h1>
+    <p class="lead">배다리요 앱에서 방 이름과 참여자를 먼저 보고, 들어갈지 정할 수 있어요.</p>
+    <a class="btn primary" id="open" href="#">앱에서 열기</a>
+
+    <h2>앱이 안 열리면</h2>
+    <ol>
+      <li><button class="btn ghost" id="copy" type="button">초대 링크 복사</button><div class="done" id="copied" aria-live="polite"></div></li>
+      <li>배다리요 앱 → 아래 <span class="key">채팅</span> 탭</li>
+      <li><span class="key">🔗 초대 링크로 들어가기</span> → <span class="key">붙여 넣기</span></li>
+    </ol>
+    <p class="note">앱이 없다면 → <a href="../install/">설치 안내</a></p>
+
+    <p class="note"><b>이 링크가 곧 방 열쇠예요.</b> 링크를 가진 사람은 누구나 이 방에 들어올 수 있어요 — 모르는 사람에게 넘기지 마세요. 들어오면 방 사람 모두에게 보여요.<br>
+    링크의 <b>#</b> 뒤(방 열쇠)는 브라우저가 이 페이지의 서버로 보내지 않고, 이 페이지도 어디에도 보내지 않아요. 대화는 종단간 암호화되어 운영자도 볼 수 없어요.</p>
+  </section>
+
+  <section class="card" id="bad" hidden>
+    <h1>초대 링크가 온전하지 않아요</h1>
+    <p class="lead">받은 링크가 중간에 잘렸을 수 있어요. 링크 전체(<b>#</b> 뒤까지)를 다시 받아 열어 주세요.</p>
+    <p class="note">배다리요 앱이 없다면 → <a href="../install/">설치 안내</a></p>
+  </section>
+
+  <p class="foot"><a href="../">개인정보처리방침</a> · <a href="../terms/">이용약관</a></p>
+</main>
+<script>
+// 초대 코드 모양 = shared ChatInvite.PATTERN 과 같은 자(🔒 ChatInvitePageTest). 앱 주소 = shared Urls.CHAT_APP.
+(function(){
+  var CHAT_APP="baedariyo://c", CHAT_INVITE="https://cobqoc.github.io/baedariyo-privacy/c";   // = shared Urls.CHAT_APP · Urls.CHAT_INVITE
+  var m=/(?:^|[#\s])1[A-Za-z0-9_-]{64}(?![A-Za-z0-9_-])/.exec(location.hash||"");
+  if(!m){ document.getElementById("bad").hidden=false; return; }
+  var code=m[0].replace(/^[#\s]/,"");
+  var invite=CHAT_INVITE+"#"+code;   // Pages 가 /c → /c/ 로 옮겨도 앱이 아는 원래 모양으로 복사한다
+  document.getElementById("ok").hidden=false;
+  document.getElementById("open").href=CHAT_APP+"#"+code;
+  document.getElementById("copy").onclick=function(){
+    var done=document.getElementById("copied");
+    function ok(){ done.textContent="복사했어요 — 앱의 채팅 탭에서 붙여 넣으세요"; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(invite).then(ok,fallback); } else fallback();
+    function fallback(){
+      var t=document.createElement("textarea"); t.value=invite; t.setAttribute("readonly",""); t.style.position="fixed"; t.style.opacity="0";
+      document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); ok(); }catch(e){ done.textContent=invite; } document.body.removeChild(t);
+    }
+  };
+})();
+</script>
+</body>
+</html>
